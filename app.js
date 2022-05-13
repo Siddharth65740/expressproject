@@ -26,16 +26,12 @@ app.get("/signup",(request,response)=>{
        //response.send("welcome to the world of express js ");
        response.sendFile(__dirname+"\\signup.html")})
 
-// app.get("/register",(request,response)=>{
-//        //response.send("welcome to the world of express js ");
-//        response.sendFile(__dirname+"\\register.html")})
-
 app.post("/register",(request,response)=>{
     console.log(request.body)
-    let userdetails=JSON.parse(fs.readFileSync("user.json"))
-    userdetails.push(request.body)
-    fs.writeFileSync("user.json",JSON.stringify(userdetails))
-    console.log(userdetails)
+    let userdetail=JSON.parse(fs.readFileSync("user.json"))
+    userdetail.push(request.body)
+    fs.writeFileSync("user.json",JSON.stringify(userdetail))
+    console.log(userdetail)
     response.send("User is Registered")
 })
 
@@ -43,10 +39,10 @@ app.get("/login",(request,response)=>{
         response.sendFile(__dirname+"\\login.html")
 })
 
-app.post("/checkuser",(request,response)=>{
+app.post("/checkUser",(request,response)=>{
     let loginform=request.body;
     let userdetails=JSON.parse(fs.readFileSync("user.json"))
-    let user=userdetails.find(user=>user.username==loginform.username && user.password==loginform.password)
+    let user=userdetails.find(user=>user.user===loginform.username && user.password===loginform.password)
     if(user !=undefined){
             response.send("Login Successful")
     }
